@@ -1,0 +1,2 @@
+# VoteAnalyser
+Analyser for Votes
