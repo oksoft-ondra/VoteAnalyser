@@ -60,6 +60,7 @@ namespace VoteAnalyser
                         c.WriteLine("quit    - Exit");
                         c.WriteLine("let - By first letter (a: 10, b: 30, ...)");
                         c.WriteLine("czhelp - Czech Help/Česká nápověda");
+                        c.WriteLine("renew - Refresh program, add new info");
                         break;
                     case "czhelp":
                         c.WriteLine("list - Vypíše vše");
@@ -67,6 +68,11 @@ namespace VoteAnalyser
                         c.WriteLine("quit - Konec");
                         c.WriteLine("let - Dle počátečního písmena (a: 10, b: 30, ...)");
                         c.WriteLine("help - English help/Anglická nápověda");
+                        c.WriteLine("renew - Obnovit program, zadat informace znovu");
+                        break;
+                    case "renew":
+                        c.Clear();
+                        Main(null);
                         break;
                 }
             }
