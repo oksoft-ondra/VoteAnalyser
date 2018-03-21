@@ -57,7 +57,7 @@ namespace VoteAnalyser
                     case "help":
                         c.WriteLine("list - Writes things");
                         c.WriteLine("num - Sortes by votes");
-                        c.WriteLine("quit - Exit");
+                        c.WriteLine("quit    - Exit");
                         c.WriteLine("let - By first letter (a: 10, b: 30, ...)");
                         c.WriteLine("czhelp - Czech Help/Česká nápověda");
                         break;
@@ -80,7 +80,7 @@ namespace VoteAnalyser
             List<string> usp = new List<string>();
             for (x = 0; x != p.Count; x++)
             {
-                usp.Add(p[x] + " " + v[x].ToString());
+                usp.Add(p[x] + ": " + v[x].ToString());
             }
             List<string> sp = usp.ToList();
             sp.Sort();
@@ -94,35 +94,33 @@ namespace VoteAnalyser
         public static List<string> ListNum(List<string> p, List<int> v)
         {
             int x;
-            List<string> usp = new List<string>();
-            for (x = 0; x != p.Count; x++)
+            int y;
+            int buffer;
+            string namer;
+            for (y = 0; y != p.Count; y++)
             {
-                usp.Add(v[x].ToString() + " " + p[x]);
-            }
-            List<string> sp = usp.ToList();
-            string buffer;
-            for (x = 0; x != sp.Count - 1; x++)
-            {
-                if (int.Parse(sp[x].Split(' ')[0]) < int.Parse(sp[x+1].Split(' ')[0]))
+                for (x = 0; x != p.Count - 1; x++)
                 {
-                    buffer = sp[x + 1].Split(' ')[0];
-                    sp[x + 1] = sp[x] + " " + p[x];
-                    sp[x] = buffer + " "+ p[x + 1];
+                    if (v[x] < v[x + 1])
+                    {
+                        buffer = v[x];
+                        v[x] = v[x + 1];
+                        v[x + 1] = buffer;
+
+                        namer = p[x];
+                        p[x] = p[x + 1];
+                        p[x + 1] = namer;
+                    }
                 }
             }
 
-            for (x = 0; x != sp.Count; x++)
+           
+            for (x = 0; x!= p.Count; x++)
             {
-                buffer = sp[x].Split(' ')[0];
-                sp[x] = sp[x].Remove(0, buffer.Length + 1);
-                sp[x] = sp[x] + " " + buffer;
-            }
-            for (x = 0; x!= sp.Count; x++)
-            {
-                c.WriteLine(sp[x]);
+                c.WriteLine(p[x] + ": " + v[x].ToString());
             }
 
-            return sp;
+            return p;
         }
 
         public static List<string> ByFirst(List<string> p, List<int> v)
